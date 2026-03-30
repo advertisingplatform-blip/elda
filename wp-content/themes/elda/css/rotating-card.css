@@ -1,0 +1,204 @@
+/* entire container, keeps perspective */
+.card-container {
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+}
+
+.card-container.static:hover .card,
+.card-container.static.hover .card {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+
+
+
+/* hide back of pane during swap */
+.front, .back {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+    z-index: 2;
+}
+
+
+/* style */
+.card-container {
+
+}
+
+.home-card {
+    width: 333px;
+    height: 363px;
+}
+
+.clinic-card{
+    width: 100%;
+    height: 555px;
+}
+
+.front, .back{
+    width: 100%;
+}
+
+.home-front, .home-back {
+    background-position: 72% center;
+    background-size: cover;
+    box-shadow: 0 10px 20px black;
+    margin: 30px 0;
+}
+
+.home-pod {
+    display: block;
+    margin: auto;
+    position: relative;
+    vertical-align: top;
+    line-height: 333px;
+    width: 333px;
+    height: 423px;
+}
+
+.home-pod:hover, .home-pod:focus {
+    outline: none;
+}
+
+.home-front:after, .home-back:after, .home-front:before, .home-back:before {
+    content: ' ';
+    width: 100%;
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+    border-top: 3px solid rgba(0, 0, 0, 0.3);
+}
+
+.home-front:before, .home-back:before {
+    top: 0;
+    left: 0;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.home-front:after, .home-back:after {
+    bottom: 0;
+    right: 0;
+}
+
+.home-pod-caption {
+    display: inline-block;
+    vertical-align: middle;
+    background: rgba(0, 0, 0, 0.44);
+    overflow: hidden;
+    text-align: center;
+    padding: 10px 20px;
+    width: 333px;
+    margin: 0;
+    height: 164px;
+    line-height: 144px;
+    text-shadow: 0 0 8px black;
+}
+
+.home-back .home-pod-caption {
+    display: block;
+    background: rgba(0, 0, 0, 0.55);
+    height: 333px;
+    line-height: 333px;
+}
+
+.home-pod-caption-inner {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.home-pod-title {
+    color: white;
+    font-size: 36px;
+    line-height: 32px;
+    font-weight: 300;
+    margin: 0 0 10px;
+}
+
+.home-back .home-pod-title {
+    font-weight: 600;
+    margin: 5px 0 35px;
+}
+
+.home-pod-excerpt {
+    color: white;
+    font-size: 17px;
+    line-height: 24px;
+    margin: 0;
+}
+
+.home-back {
+    width: 333px;
+    color: white;
+    text-align: center;
+}
+
+/*       Fix bug for IE      */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .front, .back {
+        -ms-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+
+    .back {
+        visibility: hidden;
+        -ms-transition: all 0.2s cubic-bezier(.92, .01, .83, .67);
+    }
+
+    .front {
+        z-index: 4;
+    }
+
+    .card-container:not(.manual-flip):hover .back,
+    .card-container.manual-flip.hover .back {
+        z-index: 5;
+        visibility: visible;
+    }
+}
+
+@media (min-width: 768px) {
+    /* flip speed goes here */
+    .card {
+        -webkit-transition: -webkit-transform .5s;
+        -moz-transition: -moz-transform .5s;
+        -o-transition: -o-transform .5s;
+        transition: transform .5s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    /* back, initially hidden pane */
+    .back {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+        z-index: 3;
+    }
+
+    /* flip the pane when hovered */
+    .card-container:not(.manual-flip):hover .card,
+    .card-container.hover.manual-flip .card {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+}
